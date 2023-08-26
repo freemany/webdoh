@@ -3,12 +3,3 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-.container {
-  margin: 10px auto;
-  width: 90%;
-}
-
-ul {
-  padding: 0 15px;
-}

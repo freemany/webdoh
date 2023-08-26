@@ -2,9 +2,6 @@ import VDom from "./vDom.js";
 import { getCss } from "./utils.js";
 import _ from "./underscore.template.js";
 
-const bootstrapCssUrl =
-  "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css";
-
 export default class BaseWebComponent extends HTMLElement {
   constructor() {
     super();
@@ -12,17 +9,23 @@ export default class BaseWebComponent extends HTMLElement {
     this.oVd = null;
     this.hash = null;
     this.init();
+    this.root = this.attachShadow({ mode: "open" });
     this.initData(this.setData());
     this.hookListenersToWindow();
     this.beforeMount();
-    this.root = document.createElement("div");
     // Load inline template style
     // this.loadCss();
   }
 
   connectedCallback() {
-    this.appendChild(this.root);
     this.render();
+  }
+
+  async addStyle(cssfile, root) {
+    const style = document.createElement("style");
+    const css = await getCss(cssfile);
+    style.textContent = css;
+    root.appendChild(style);
   }
 
   async loadCss() {
@@ -46,7 +49,7 @@ export default class BaseWebComponent extends HTMLElement {
   }
 
   render() {
-    this.beforeRender();
+    // this.beforeRender();
     const data = Object.keys(this.data).reduce((r, c) => {
       r[c] = this.data[c];
       return r;
@@ -61,7 +64,9 @@ export default class BaseWebComponent extends HTMLElement {
 
     if (!this.oVd) {
       this.oVd = vd;
-      this.root = vDom.mount(vDom.render(this.oVd), this.root);
+      const firstChild = document.createElement("div");
+      this.shadowRoot.appendChild(firstChild);
+      this.root = vDom.mount(vDom.render(this.oVd), firstChild);
     } else {
       this.nVd = vd;
       vDom.update(this.oVd, this.nVd, this.root);

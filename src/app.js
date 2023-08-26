@@ -1,7 +1,7 @@
 import TodoListComponent from "./components/todoListComponent.js";
 import TodoItemComponent from "./components/todoItemComponent.js";
-import BaseWebComponent from "./@webdoh/baseComponent.js";
-import { setStoreData } from "./@webdoh/store.js";
+import BaseWebComponent from "../@webdoh/baseComponent.js";
+import { setStoreData } from "../@webdoh/store.js";
 import { createTodo } from "./services/todoService.js";
 
 class AppComponent extends BaseWebComponent {
@@ -10,6 +10,7 @@ class AppComponent extends BaseWebComponent {
   }
 
   beforeMount() {
+    this.addStyle("./src/app.css", this.root);
     setStoreData("appData", this.data);
   }
 
@@ -30,7 +31,7 @@ class AppComponent extends BaseWebComponent {
     <input type="text" ref="todoNameInput"/>
     <button class="new-task-btn" onclick="appOnclickHandler(this)">New</button>
     <todo-list data-todo-list="<%=todoList %>"></todo-list>
-    <div><p><%=(new Date()).getTime() %></p><p><%=JSON.stringify(todoList) %></p></div>
+    <p><span><%=(new Date()).getTime() %></span><br/><span><%=JSON.stringify(todoList) %></span></p>
     </div>`;
   }
 

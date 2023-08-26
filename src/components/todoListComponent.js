@@ -1,4 +1,4 @@
-import BaseWebComponent from "../@webdoh/baseComponent.js";
+import BaseWebComponent from "../../../@webdoh/baseComponent.js";
 
 export default class TodoListComponent extends BaseWebComponent {
   static get observedAttributes() {
@@ -6,6 +6,10 @@ export default class TodoListComponent extends BaseWebComponent {
   }
   constructor() {
     super();
+  }
+
+  beforeMount() {
+    this.addStyle("./src/components/todoListComponent.css", this.root);
   }
 
   setData() {

@@ -1,6 +1,10 @@
-import BaseWebComponent from "../@webdoh/baseComponent.js";
-import { getStoreData } from "../@webdoh/store.js";
-import { getCss, getFuncNameWithHash, nextTick } from "../@webdoh/utils.js";
+import BaseWebComponent from "../../../@webdoh/baseComponent.js";
+import { getStoreData } from "../../../@webdoh/store.js";
+import {
+  getCss,
+  getFuncNameWithHash,
+  nextTick,
+} from "../../../@webdoh/utils.js";
 import { TODO_ITEM_SEPERATOR } from "../constants/index.js";
 import { deleteTodo, updateTodo } from "../services/todoService.js";
 
@@ -10,6 +14,10 @@ export default class TodoItemComponent extends BaseWebComponent {
   }
   constructor() {
     super();
+  }
+
+  beforeMount() {
+    this.addStyle("./src/components/todoItemComponent.css", this.root);
   }
 
   init() {
