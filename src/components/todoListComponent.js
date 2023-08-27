@@ -10,7 +10,7 @@ export default class TodoListComponent extends BaseWebComponent {
 
   setData() {
     return {
-      todoList: [],
+      todoList: { default: [] },
     };
   }
 
@@ -22,11 +22,21 @@ export default class TodoListComponent extends BaseWebComponent {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "data-todo-list") {
-      const n = newValue.split(",");
-      if (newValue) {
-        this.data.todoList = n;
-      } else {
-        this.data.todoList = [];
+      const o = oldValue ? oldValue.split(",") : [];
+      const n = newValue ? newValue.split(",") : [];
+      console.log(o, n);
+      this.data.todoList = n;
+
+      if (n.length > o.length) {
+        const $li = $("<todo-item>").attr("data-todo-item", n[n.length - 1]);
+        $(this.root).find("ul").append($li);
+
+        return;
+      }
+
+      const found = o.find((item) => !n.includes(item));
+      if (found) {
+        $(this.root).find(`todo-item[data-todo-item="${found}"]`).remove();
       }
     }
   }
