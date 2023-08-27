@@ -1,4 +1,4 @@
-import BaseWebComponent from "../@webdoh/baseComponent.js";
+import BaseWebComponent from "../../../@webdoh/baseComponent.js";
 
 export default class TodoListComponent extends BaseWebComponent {
   static get observedAttributes() {
@@ -24,7 +24,6 @@ export default class TodoListComponent extends BaseWebComponent {
     if (name === "data-todo-list") {
       const o = oldValue ? oldValue.split(",") : [];
       const n = newValue ? newValue.split(",") : [];
-      console.log(o, n);
       this.data.todoList = n;
 
       if (n.length > o.length) {
@@ -33,10 +32,21 @@ export default class TodoListComponent extends BaseWebComponent {
 
         return;
       }
+      if (n.length < o.length) {
+        const found = o.find((item) => !n.includes(item));
+        if (found) {
+          $(this.root).find(`todo-item[data-todo-item="${found}"]`).remove();
+        }
 
-      const found = o.find((item) => !n.includes(item));
-      if (found) {
-        $(this.root).find(`todo-item[data-todo-item="${found}"]`).remove();
+        return;
+      }
+
+      for (let i = 0; i < o.length; i++) {
+        if (n[i] !== o[i]) {
+          $(this.root)
+            .find(`todo-item[data-todo-item="${o[i]}"]`)
+            .attr("data-todo-item", n[i]);
+        }
       }
     }
   }
