@@ -86,10 +86,6 @@ export default class TodoItemComponent extends BaseWebComponent {
         : [null, null];
       this.data.todoId = id;
       this.data.todoName = name;
-      $(this.root).find(".todo-item-name-input").val(name);
-      $(this.root).find(".todo-update-btn").attr("todo-id", id);
-      $(this.root).find(".todo-item-name").text(name);
-      $(this.root).find(".todo-delete-btn").attr("todo-id", id);
     }
   }
 }
