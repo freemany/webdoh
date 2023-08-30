@@ -22,12 +22,7 @@ export default class TodoListComponent extends BaseWebComponent {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "data-todo-list") {
-      const n = newValue.split(",");
-      if (newValue) {
-        this.data.todoList = n;
-      } else {
-        this.data.todoList = [];
-      }
+      this.data.todoList = newValue ? newValue.split(",") : [];
     }
   }
 }

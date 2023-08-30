@@ -16,17 +16,13 @@ class AppComponent extends BaseWebComponent {
   setData() {
     return {
       todoList: [],
-      newTask: "",
-      title: "Todo Demo",
+      title: "My Todo Demo",
     };
   }
 
   template() {
     return `<div class="container">
     <h1><%= title %></h1>
-    <% if (newTask) { %>
-    <h5>new task:<%=newTask %></h5>
-    <% } %>
     <input type="text" ref="todoNameInput"/>
     <button class="new-task-btn" onclick="appOnclickHandler(this)">New</button>
     <todo-list data-todo-list="<%=todoList %>"></todo-list>
