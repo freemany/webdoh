@@ -1,10 +1,6 @@
 import BaseWebComponent from "../../../@webdoh/baseComponent.js";
 import { getStoreData } from "../../../@webdoh/store.js";
-import {
-  getCss,
-  getFuncNameWithHash,
-  nextTick,
-} from "../../../@webdoh/utils.js";
+import { getCss, nextTick } from "../../../@webdoh/utils.js";
 import { TODO_ITEM_SEPERATOR } from "../constants/index.js";
 import { deleteTodo, updateTodo } from "../services/todoService.js";
 
@@ -14,16 +10,6 @@ export default class TodoItemComponent extends BaseWebComponent {
   }
   constructor() {
     super();
-  }
-
-  init() {
-    this.todoItemOnchangeHandler = getFuncNameWithHash(
-      "todoItemOnchangeHandler"
-    );
-    this.todoItemOnclickHandler = getFuncNameWithHash("todoItemOnclickHandler");
-    this.todoItemNameOnclickHandler = getFuncNameWithHash(
-      "todoItemNameOnclickHandler"
-    );
   }
 
   async beforeRender() {
@@ -38,9 +24,6 @@ export default class TodoItemComponent extends BaseWebComponent {
       todoId: null,
       todoName: null,
       isEditing: false,
-      todoItemOnchangeHandler: this.todoItemOnchangeHandler,
-      todoItemOnclickHandler: this.todoItemOnclickHandler,
-      todoItemNameOnclickHandler: this.todoItemNameOnclickHandler,
     };
   }
 
@@ -48,22 +31,22 @@ export default class TodoItemComponent extends BaseWebComponent {
     return `<li>
     <% if (isEditing) { %>
     <span><input value="<%=todoName %>" type="text" ref="todoNameInput" />
-    <button class="todo-update-btn" todo-id="<%=todoId %>" onclick="<%=todoItemOnclickHandler %>(this)">Save</button></span>
+    <button class="todo-update-btn" todo-id="<%=todoId %>" onclick="todoItemOnclickHandler">Save</button></span>
     <% } else { %>
-    <span class="todo-item-name" onclick="<%=todoItemNameOnclickHandler %>(this)"><%=todoName %></span>
+    <span class="todo-item-name" onclick="todoItemNameOnclickHandler"><%=todoName %></span>
     <% } %>  
-    <button class="todo-delete-btn" todo-id="<%=todoId %>" onclick="todoItemDeleteHandler(this)">x</button>
+    <button class="todo-delete-btn" todo-id="<%=todoId %>" onclick="todoItemDeleteHandler">x</button>
     </li>`;
   }
 
   listeners() {
     return {
-      [this.todoItemNameOnclickHandler]: () => {
+      todoItemNameOnclickHandler: () => {
         this.data.isEditing = true;
       },
-      [this.todoItemOnclickHandler]: (el) => {
+      todoItemOnclickHandler: (e) => {
         const appData = getStoreData("appData");
-        const id = el.getAttribute("todo-id");
+        const id = e.target.getAttribute("todo-id");
         appData.todoList = updateTodo(
           appData.todoList,
           id,
@@ -71,9 +54,9 @@ export default class TodoItemComponent extends BaseWebComponent {
         );
         nextTick(() => (this.data.isEditing = false));
       },
-      todoItemDeleteHandler: (el) => {
+      todoItemDeleteHandler: (e) => {
         const appData = getStoreData("appData");
-        const id = el.getAttribute("todo-id");
+        const id = e.target.getAttribute("todo-id");
         if (id) {
           const deletedTodoList = deleteTodo(appData.todoList, id);
           if (appData.todoList.length > deletedTodoList.length) {

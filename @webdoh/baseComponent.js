@@ -49,7 +49,7 @@ export default class BaseWebComponent extends HTMLElement {
       return r;
     }, {});
 
-    const vDom = VDom();
+    const vDom = VDom(this);
     const tpl = this.template();
     const parser = new DOMParser();
     const doc = parser.parseFromString(_.template(tpl)(data), "text/html");

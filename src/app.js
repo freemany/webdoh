@@ -24,7 +24,7 @@ class AppComponent extends BaseWebComponent {
     return `<div class="container">
     <h1><%= title %></h1>
     <input type="text" ref="todoNameInput"/>
-    <button class="new-task-btn" onclick="appOnclickHandler(this)">New</button>
+    <button class="new-task-btn" onclick="appOnclickHandler">New</button>
     <todo-list data-todo-list="<%=todoList %>"></todo-list>
     <p><span><%=(new Date()).getTime() %></span><br/><span><%=JSON.stringify(todoList) %></span></p>
     </div>`;
@@ -32,10 +32,7 @@ class AppComponent extends BaseWebComponent {
 
   listeners() {
     return {
-      // We can have onchange handler
-      // appOnchangeHandler: (el) => {},
       appOnclickHandler: () => {
-        // @TODO still bugy
         const value =
           this.refs.todoNameInput && this.refs.todoNameInput.value
             ? this.refs.todoNameInput.value.trim()
@@ -43,7 +40,6 @@ class AppComponent extends BaseWebComponent {
         if (value) {
           this.data.todoList = createTodo(this.data.todoList, value);
           this.refs.todoNameInput.value = "";
-          // setTimeout(() => (this.data.newTask = value), 200);
         }
       },
     };
