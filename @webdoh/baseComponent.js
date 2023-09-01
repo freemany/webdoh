@@ -13,8 +13,6 @@ export default class BaseWebComponent extends HTMLElement {
     this.initData(this.setData());
     this.hookListenersToWindow();
     this.beforeMount();
-    // Load inline template style
-    // this.loadCss();
   }
 
   connectedCallback() {
@@ -26,13 +24,6 @@ export default class BaseWebComponent extends HTMLElement {
     const css = await getCss(cssfile);
     style.textContent = css;
     root.appendChild(style);
-  }
-
-  async loadCss() {
-    const styles = document.createElement("style");
-    this.root.appendChild(styles);
-    const css = await getCss(bootstrapCssUrl);
-    styles.textContent = css;
   }
 
   init() {}
@@ -55,7 +46,7 @@ export default class BaseWebComponent extends HTMLElement {
       return r;
     }, {});
 
-    const vDom = VDom();
+    const vDom = VDom(this);
     const tpl = this.template();
     const parser = new DOMParser();
     const doc = parser.parseFromString(_.template(tpl)(data), "text/html");

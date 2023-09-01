@@ -1,6 +1,8 @@
 import $ from "./jquery.js";
 
-export default () => {
+const domEvents = ["onclick", "onchange", "onblur"];
+
+export default (instance) => {
   const _refs = {};
 
   const createElement = (tagName, { attrs = {}, children = [] } = {}) => {
@@ -28,6 +30,9 @@ export default () => {
         if ($node && typeof $node.setAttribute === "function") {
           if ("ref" === k) {
             _refs[v] = $node;
+          }
+          if (domEvents.includes(k)) {
+            $node[k] = instance.listeners()[v].bind(instance);
           } else {
             $node.setAttribute(k, v);
           }
@@ -95,6 +100,8 @@ export default () => {
         if ("text" === k) continue;
         if ("ref" === k) {
           _refs[v] = $el;
+        } else if (domEvents.includes(k)) {
+          $el[k] = instance.listeners()[v].bind(instance);
         } else {
           $el.setAttribute(k, v);
         }
