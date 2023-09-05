@@ -15,8 +15,8 @@ class AppComponent extends BaseWebComponent {
 
   setData() {
     return {
-      todoList: [],
       title: "My Todo Demo",
+      todoList: [],
     };
   }
 
