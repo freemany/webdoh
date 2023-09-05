@@ -1,1 +1,1 @@
-export const TODO_ITEM_SEPERATOR = "::";
+export const TODO_ITEM_SEPARATOR = "::";

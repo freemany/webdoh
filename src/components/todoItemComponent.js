@@ -1,7 +1,7 @@
 import BaseWebComponent from "../../../@webdoh/baseComponent.js";
 import { getStoreData } from "../../../@webdoh/store.js";
 import { getCss, nextTick } from "../../../@webdoh/utils.js";
-import { TODO_ITEM_SEPERATOR } from "../constants/index.js";
+import { TODO_ITEM_SEPARATOR } from "../constants/index.js";
 import { deleteTodo, updateTodo } from "../services/todoService.js";
 
 export default class TodoItemComponent extends BaseWebComponent {
@@ -70,7 +70,7 @@ export default class TodoItemComponent extends BaseWebComponent {
   attributeChangedCallback(name, oldValue, newValue) {
     if (newValue) {
       const [id, name] = newValue
-        ? newValue.split(TODO_ITEM_SEPERATOR)
+        ? newValue.split(TODO_ITEM_SEPARATOR)
         : [null, null];
       this.data.todoId = id;
       this.data.todoName = name;
