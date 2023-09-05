@@ -10,11 +10,10 @@ export default class BaseWebComponent extends HTMLElement {
     this.hash = null;
     this.init();
     this.initData(this.setData());
-    this.hookListenersToWindow();
+    // Comment out as we don't need it with vdom
+    // this.hookListenersToWindow();
     this.beforeMount();
     this.root = document.createElement("div");
-    // Load inline template style
-    // this.loadCss();
   }
 
   connectedCallback() {
@@ -68,12 +67,12 @@ export default class BaseWebComponent extends HTMLElement {
     this.afterRender();
   }
 
-  hookListenersToWindow() {
-    const listeners = this.listeners();
-    for (const key in listeners) {
-      window[key] = listeners[key];
-    }
-  }
+  // hookListenersToWindow() {
+  //   const listeners = this.listeners();
+  //   for (const key in listeners) {
+  //     window[key] = listeners[key];
+  //   }
+  // }
 
   initData(config) {
     const _this = this;
