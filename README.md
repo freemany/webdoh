@@ -1,5 +1,7 @@
 ## WebDoh Framework in Todo App as Demo
 
+<img src="images/demo.png" width="70%">
+
 ##### Nowadays everyone is using Javascript frameworks to build web apps, who does not use modern JS frameworks like React, Vue, Angular or Svelte? We just simply use them for every JS projects and we are amazed by the magic they present to us at the same time. However we kind of NEVER know and understand how the magics are made from, because these frameworks are only designed for usages not for understanding of how it works. As a user or developer you just don't need to understand them before you can use them, but even you want to understand the magic you have been performing, they are still a way too hard to be learnt.
 
 While using the frameworks as tools, you may already have Questions marks in head about why the view could be driven the data, how the global state store works, how Prop-drill could drive rendering, how could the templating works with DOM event handlers and as an element and so on and on. Can we ever perform this kind of magic to work as an web app with the most native JS and minimal libraries which are simple and understandable. Here mentioned are all valid questions and interesting desire from a passionate JS developer.
@@ -75,7 +77,7 @@ With the help from `Vdom` virtual DOM rendering, we can have the way for our lis
 2. Focus on hooks like `beforeMount` to push your local react data to global context which you can get it back anywhere for manipulation:
 
 <img src="images/beforemount.png" width="25%">
-<img src="images/getdata.png" width="40%">
+<img src="images/getData.png" width="40%">
 
 3. Set the react local data for webcomponent in `setData()`:
 
